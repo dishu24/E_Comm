@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Order{% endblock title %}
+{% block main-content %}
+<div class="container my-5">
+ <div class="row">
+ <h3>Welcome <span class="text-capitalize">{{request.user}}</span></h3>
+  <div class="col-sm-2 border-end">
+   <ul class="list-unstyled">
+    <li class="d-grid"><a href="{% url 'order' %}" class="btn btn-primary">Orders</a></li>
+   </ul>
+  </div>
+  <div class="col-sm-9 offset-sm-1">
+    {% for order in orders %}
+   <div class="row shadow-sm mb-3">
+    <div class="col-sm-2">
+        <img src="{{order.product.product_image.url}}" class="img-fluid" height="150" width="150" alt="">
+    </div>
+    <div class="col-sm-7">
+        <p>Product: {{order.product.tittle}}</p>
+        <p>Quantity: {{order.quantity}}</p>
+        <p>Total Price: {{order.total_cost}}</p>
+    </div>
+    <div class="col-sm-3 fw-bold">
+        <p>Order Status: {{order.status}}</p>
+        {% if order.status == 'Comfirmed' %}
+        <div class="progress">
+            <div class="progress-bar bg-success" role="progressbar" style="width:100%" aria-valuenow="100"></div>
+        </div>
+        {% endif %}
+    </div>
+   </div>
+   {% endfor %}
+  </div>
+ </div>
+</div>
+{% endblock main-content %}
